@@ -220,7 +220,12 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
   return currentState;
 }
 
-
+/*
+ * Description: Tester function that brints the state's bit data 
+ *              for testing. Prints each bit for a different led
+ * Input: Integer of the character representation of the state
+ * Output: None
+ */
 void dispState(int s) {
   //  Serial.print("%d %d %d", s&0x1, s&0x2, s&0x4);
   // Print bit data for testing
@@ -229,8 +234,15 @@ void dispState(int s) {
   digitalWrite(led_2, s & 0x4);
 }
 
+/*
+ * Description: Prints a string representation of state s to Serial
+ * Parameters: state type as 's'
+ * Return: None
+ */
 void printState(state s)
 {
+  // Switch statement that checks what state s is equal to in the
+  // enum represenation of it. Prints a match to Serial
   switch (s)
   {
     case (state::STA):
