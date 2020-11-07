@@ -3,29 +3,31 @@
 #include <math.h>
 #include "states.h"
 
-
+//return state enum given a Stream
+//refSer is pass by reference but never manipulated
 state getState(Stream &refSer)
 {
-  if (refSer.available()) {
-    char receivedChar = refSer.read();
-    Serial.print(receivedChar);
-    if ( '0' <= receivedChar && receivedChar <= '0' + state::CRAWL)
+  if (refSer.available()) { //check if there is a state
+    char receivedChar = refSer.read(); //turn stream into char
+    Serial.print(receivedChar); //print char that represents state
+    if ( '0' <= receivedChar && receivedChar <= '0' + state::CRAWL) 
     {
-      return (state)((int)receivedChar - (int)'0');
+      return (state)((int)receivedChar - (int)'0'); //return state given char
     }
   }
-  return state::STATE_NONE;
+  return state::STATE_NONE; //if there is no state return STATE_NONE
 }
 
 
 
-
+//return state given recieved state, the current state, the motor pin, the break pin and tsi
 state checkState(state receivedState, state currentState, unsigned long *TSI, int motor_pin, int brake_pin)
 {
+  //set current state to FAULT if received state is FAULT but not the current state
   if (receivedState == state::FAULT && currentState != state::FAULT) {
     currentState = state::FAULT;
     *TSI = millis();
-    Serial.print("TSI: ");
+    Serial.print("TSI: "); //print the tsi
     Serial.println(*TSI);
   }
   // check state (switch case)
@@ -54,7 +56,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
 
     case (state::RTL):
       {
-        if (receivedState == state::STA)
+        if (receivedState == state::STA) //if current state is RTL and received state is STA return STA
         {
           *TSI = millis();
 
@@ -66,7 +68,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
           return state::STA;
         }
 
-        if (receivedState == state::LAUNCH)
+        if (receivedState == state::LAUNCH) //if current state is RTL and received state is LAUNCH return LAUNCH
         {
           *TSI = millis();
 
@@ -90,7 +92,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
         
         */
         
-        if (receivedState == state::COAST)
+        if (receivedState == state::COAST) //if current state is launch and received state is coast, return coast
         {
           *TSI = millis();
 
@@ -104,7 +106,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
         }
 
 
-        if (receivedState == state::BRAKE)
+        if (receivedState == state::BRAKE) //if current state is launch and received state is break, return break
         {
           *TSI = millis();
 
@@ -127,7 +129,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
         */
       
       {
-        if (receivedState == state::BRAKE)
+        if (receivedState == state::BRAKE) //if current state is coast and reveived state is brake, return brake
         {
           *TSI = millis();
 
@@ -139,7 +141,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
           Serial.println(*TSI);
           return state::BRAKE;
         }
-        if (receivedState == state::CRAWL)
+        if (receivedState == state::CRAWL) //if current state is coast and received state is crawl, return crawl
         {
           *TSI = millis();
 
@@ -155,7 +157,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
       }
     case (state::BRAKE):
       {
-        if (receivedState == state::CRAWL)
+        if (receivedState == state::CRAWL) //if current state is brake and received state is crawl, return crawl
         {
           *TSI = millis();
 
@@ -168,7 +170,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
           Serial.println(*TSI);
           return state::CRAWL;
         }
-        if (receivedState == state::STA)
+        if (receivedState == state::STA) //if current state is brake and received state is sta, return brake
         {
           *TSI = millis();
 
@@ -192,7 +194,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
         
         */
       {
-        if (receivedState == state::BRAKE)
+        if (receivedState == state::BRAKE) // if current state is crawl and received state is brake, return brake
         {
           *TSI = millis();
 
@@ -205,7 +207,7 @@ state checkState(state receivedState, state currentState, unsigned long *TSI, in
         }
         break;
       }
-    default:
+    default: // default: return fault
 
       Serial.print("fault");
       digitalWrite(motor_pin, LOW);
