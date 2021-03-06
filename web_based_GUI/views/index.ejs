@@ -3,7 +3,8 @@
   <head>
     <title>QHDT Control</title>
     <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico"/>
-    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">  
+    <link rel="stylesheet" href="./bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./stylesheets/progress-bars.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/custom-style.css">
   </head>
   <body>
@@ -12,21 +13,14 @@
     </div>
     <div class="container-fluid" id="drop-top">
       <div class="row">
-        <div class="col-2" id="control-pannel">
-          <div class="row" id="control-header">
-            <h4>Control Pannel</h4>
-          </div>
+        <div class="col-2" id="control-panel">
           <div class="row" id="control-row">
             <button class="btn btn-danger" id="emerg-stop">Emergency Stop</button>
-          </div>
-          <div class="row" id="control-row">
-            <button class="btn btn-info"  id="ready-launch">Ready To Launch</button>
-          </div>
-          <div class="row" id="control-row" >
-            <button class="btn btn-info" id="safe-approach">Safe To Approach</button>
+	    <button class="btn btn-info"  id="ready-launch">Ready To Launch</button>
+	    <button class="btn btn-info" id="safe-approach">Safe To Approach</button>
           </div>
         </div>
-        <div class="col-6" id="pod-status-pannel">
+	<div class="col-6" id="pod-status-pannel">
           <div class="row" style="padding: 15px;">
             <h4>Telemetry</h4>
           </div>
@@ -39,42 +33,21 @@
             <div class="col-6">
               <h4>Sensor Data</h4>
             </div>
-            <div class="col-2">
-              <h6>Min</h6>
-            </div>
-            <div class="col-2">
-              <h6>Max</h6>
-            </div>
-            <div class="col-2">
-              <h6>Actual</h6>
-            </div>
           </div>
           <div class="row" id="data-row">
-            <div class="col-6">
+            <div class="col-2">
               Battery Temperature
             </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+            <div class="col-4">
+              <meter id="progress-bar" value="0.6">60%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
             <div class="col-6">
               Motor Temperature
             </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+            <div class="col-6">
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
@@ -82,13 +55,7 @@
               Pod Temperature
             </div>
             <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
@@ -96,13 +63,7 @@
               Battery Voltage (Motor)
             </div>
             <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
@@ -110,13 +71,7 @@
               Battery Voltage (Electronics)
             </div>
             <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
@@ -124,13 +79,7 @@
               Air Tank Pressure
             </div>
             <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
           <div class="row" id="data-row">
@@ -138,13 +87,7 @@
               Vessel Pressure
             </div>
             <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
-            </div>
-            <div class="col-2">
-              0.00
+              <meter id="progress-bar" value="0.5">50%</meter>
             </div>
           </div>
         </div>
