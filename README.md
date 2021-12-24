@@ -1,11 +1,9 @@
-# Hyperloop
+# Queen's University Gen2 Hyperloop Pod
 
 ## INTRO ##
-Queen's University Hyperloop team 2019 software structure
-
-This project combines 3 arduinos and a radio to monitor and determine the state of the pod. The pod can be remotely accessed
-via the SpaceX Base Station and reports the telemetry of the pod back to the base station. One arduino is dedicated to managing
-the state of the pod, another is for network communication and the third is given to SpaceX to calculate the velocity of the pod.
+This project combines 2 arduinos and a radio to monitor and determine the state of the pod. The pod can be remotely accessed
+via a computer on the same network and reports the telemetry of the pod back to the computer. One arduino is dedicated to managing
+the state of the pod, another is for network communication.
 
 ## GUI SET UP ##
 ### INSTALL NPM and NODE ###
@@ -30,13 +28,13 @@ app should be running at http://localhost:3000
 ## HARDWARE ##
 A list of all hardware components used on this project:
 #### Controllers/Radios/Shields ####
-2	Arduino Due
+1	Arduino Due
+
+1	Arduino Uno
 
 1	M900 Ubiquiti Rocket
 
-3	SainSmart Ethernet shield 
-
-1	Arduino Uno
+3	SainSmart Ethernet shield
 #### Sensors ####
 3	Adafruit BMO055
 
