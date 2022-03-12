@@ -1,16 +1,14 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v4.4.1): util.js
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Bootstrap (v4.6.1): util.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
 
 import $ from 'jquery'
 
 /**
- * ------------------------------------------------------------------------
  * Private TransitionEnd Helpers
- * ------------------------------------------------------------------------
  */
 
 const TRANSITION_END = 'transitionend'
@@ -19,6 +17,10 @@ const MILLISECONDS_MULTIPLIER = 1000
 
 // Shoutout AngusCroll (https://goo.gl/pxwQGp)
 function toType(obj) {
+  if (obj === null || typeof obj === 'undefined') {
+    return `${obj}`
+  }
+
   return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase()
 }
 
@@ -30,7 +32,8 @@ function getSpecialTransitionEndEvent() {
       if ($(event.target).is(this)) {
         return event.handleObj.handler.apply(this, arguments) // eslint-disable-line prefer-rest-params
       }
-      return undefined // eslint-disable-line no-undefined
+
+      return undefined
     }
   }
 }
@@ -57,13 +60,10 @@ function setTransitionEndSupport() {
 }
 
 /**
- * --------------------------------------------------------------------------
- * Public Util Api
- * --------------------------------------------------------------------------
+ * Public Util API
  */
 
 const Util = {
-
   TRANSITION_END: 'bsTransitionEnd',
 
   getUID(prefix) {
@@ -71,6 +71,7 @@ const Util = {
       // eslint-disable-next-line no-bitwise
       prefix += ~~(Math.random() * MAX_UID) // "~~" acts like a faster Math.floor() here
     } while (document.getElementById(prefix))
+
     return prefix
   },
 
@@ -84,7 +85,7 @@ const Util = {
 
     try {
       return document.querySelector(selector) ? selector : null
-    } catch (err) {
+    } catch (_) {
       return null
     }
   },
@@ -121,7 +122,6 @@ const Util = {
     $(element).trigger(TRANSITION_END)
   },
 
-  // TODO: Remove in v5
   supportsTransitionEnd() {
     return Boolean(TRANSITION_END)
   },
@@ -134,9 +134,9 @@ const Util = {
     for (const property in configTypes) {
       if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
         const expectedTypes = configTypes[property]
-        const value         = config[property]
-        const valueType     = value && Util.isElement(value)
-          ? 'element' : toType(value)
+        const value = config[property]
+        const valueType = value && Util.isElement(value) ?
+          'element' : toType(value)
 
         if (!new RegExp(expectedTypes).test(valueType)) {
           throw new Error(
