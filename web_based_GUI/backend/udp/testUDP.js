@@ -1,24 +1,13 @@
-var dgram = require("dgram");
+// This file is not used in the project, it is just for testing purposes
+// You can run this file with "node testUDP.js" in the terminal
 
+var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
 
-console.log("test");
+const message = "podTemp:60";
 
-// client.send("Hello World!", 0, 12, 8888, "192.168.1.177");
-// client.send("Hello World!", 0, 12, 8888, "192.168.1.177");
-// client.send(
-//   "Hello World!",
-//   0,
-//   12,
-//   8888,
-//   "192.168.1.177",
-//   function (err, bytes) {
-//     client.close();
-//   }
-// );
+console.log(`Sending UDP message: "${message}"`);
 
-client.send("Hello World!", 0, 12, 6000, "0.0.0.0");
-client.send("Hello World!", 0, 12, 6000, "0.0.0.0");
-client.send("Hello Mam!", 0, 10, 6000, "0.0.0.0", function (err, bytes) {
+client.send(message, 0, message.length, 6000, "0.0.0.0", function (err, bytes) {
   client.close();
 });
