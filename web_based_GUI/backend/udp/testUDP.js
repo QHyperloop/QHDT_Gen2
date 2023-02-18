@@ -17,8 +17,8 @@ console.log("test");
 //   }
 // );
 
-client.send("Hello World!", 0, 12, 3000, "0.0.0.0");
-client.send("Hello World!", 0, 12, 3000, "0.0.0.0");
-client.send("Hello Mam!", 0, 10, 3000, "0.0.0.0", function (err, bytes) {
+client.send("Hello World!", 0, 12, 6000, "0.0.0.0");
+client.send("Hello World!", 0, 12, 6000, "0.0.0.0");
+client.send("Hello Mam!", 0, 10, 6000, "0.0.0.0", function (err, bytes) {
   client.close();
 });
