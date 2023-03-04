@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+var cors = require("cors");
 
 var dgram = require("dgram");
 
@@ -12,6 +13,8 @@ var db = new Datastore({ filename: "./localDB/local.db", autoload: true });
 require("./udp/udpConfig")(db);
 // Initialize local database
 require("./localDB/initDB")(db);
+
+app.use(cors());
 
 // Launch backend server
 const port = process.env.PORT || 5000;

@@ -4,8 +4,8 @@ module.exports = function (db) {
   const socket = dgram.createSocket("udp4");
 
   socket.bind({
-    port: process.env.UDP_PORT || 3000,
-    address: process.env.UDP_IP || "192.168.0.20",
+    port: process.env.UDP_PORT || 8888,
+    address: process.env.UDP_IP || "192.168.1.60",
   });
 
   socket.on("listening", () => {
@@ -36,7 +36,6 @@ module.exports = function (db) {
         {},
         function (err, docReplaced) {}
       );
-      console.log("Updated database with", docs);
     });
   });
 };
