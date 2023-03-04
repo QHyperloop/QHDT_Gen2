@@ -4,8 +4,8 @@ module.exports = function (db) {
   const socket = dgram.createSocket("udp4");
 
   socket.bind({
-    port: process.env.UDP_PORT || 8888,
-    address: process.env.UDP_IP || "192.168.1.60",
+    port: process.env.INBOUND_UDP_PORT || 8888,
+    address: process.env.INBOUND_UDP_IP || "192.168.1.60",
   });
 
   socket.on("listening", () => {
