@@ -33,61 +33,17 @@ function App() {
     };
   }, []);
 
-  const data = [
-    {
-      // name: "-50",
-      battery: 200,
-      motor: 300,
-    },
-    {
-      // name: "-40",
-      battery: 500,
-      motor: 1198,
-    },
-    {
-      // name: "-30",
-      battery: 600,
-      motor: 1398,
-    },
-    {
-      // name: "-20",
-      battery: 800,
-      motor: 1100,
-    },
-    {
-      // name: "-10",
-      battery: 1000,
-      motor: 900,
-    },
-    {
-      // name: "0",
-      battery: 700,
-      motor: 1100,
-    },
-    {
-      // name: "10",
-      battery: 200,
-      motor: 1000,
-    },
-  ];
-
   const [sensors, setSensors] = useState([]);
 
-  let dataTest = [];
-
+  let updatedSensors = [];
   const handleSensors = async () => {
     const response = await getSensors();
-    // const newSensors = [...sensors, response];
-    // console.log("response: ", response);
-    // console.log("dataTest: ", dataTest);
-    const newSensors = [...dataTest, response];
+    let newSensors = [...updatedSensors, response];
     if (newSensors.length > 10) {
       newSensors.shift();
     }
-    // console.log("newSensors: ", newSensors);
     setSensors(newSensors);
-    dataTest = newSensors;
-    // console.log("sensors: ", sensors);
+    updatedSensors = newSensors;
   };
 
   useEffect(() => {

@@ -21,17 +21,32 @@ module.exports = function (db) {
     const messageData = message.toString();
     console.log(`UDP message: ${messageData}`);
 
-    // Sample message data: 3f 02 9c 78 49 1b
+    // Sample message data: 3f 02 9c 78 49 1b 02
 
-    const sensorType = messageData.split(":")[0];
-    const sensorValue = messageData.split(":")[1];
+    const hexArray = messageData.split(" ");
+
+    const batteryTemp = hexArray[0];
+    const motorTemp = hexArray[1];
+    const podTemp = hexArray[2];
+    const motorVoltage = hexArray[3];
+    const electronicsVoltage = hexArray[4];
+    const tankPressure = hexArray[5];
+    const vesselPressure = hexArray[6];
 
     db.findOne({ _id: "sensorData" }, async function (err, docs) {
-      for (var key in docs) {
-        if (key === sensorType) {
-          docs[key] = sensorValue;
-        }
-      }
+      // for (var key in docs) {
+      //   if (key === sensorType) {
+      //     docs[key] = sensorValue;
+      //   }
+      // }
+      docs["batteryTemp"] = batteryTemp;
+      docs["motorTemp"] = motorTemp;
+      docs["podTemp"] = podTemp;
+      docs["motorVoltage"] = motorVoltage;
+      docs["electronicsVoltage"] = electronicsVoltage;
+      docs["tankPressure"] = tankPressure;
+      docs["vesselPressure"] = vesselPressure;
+
       db.update(
         { _id: "sensorData" },
         docs,

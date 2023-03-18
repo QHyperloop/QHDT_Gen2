@@ -4,9 +4,7 @@
 var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
 
-const message = "batteryTemp:60";
-const message1 = "motorTemp:80";
-const message2 = "podTemp:70";
+const message = "10 20 12 14 12 03 02";
 
 console.log(`Sending UDP message: "${message}"`);
 
