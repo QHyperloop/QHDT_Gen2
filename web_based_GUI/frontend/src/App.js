@@ -1,7 +1,8 @@
 import logo from "./images/QH_logo.png";
 import styles from "./stylesheets/custom-style.css";
 import stlyes from "./stylesheets/bootstrap/bootstrap.min.css";
-import { emergencyStop, safe, ready } from "./api";
+import { emergencyStop, safe, ready, getSensors } from "./api";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   LineChart,
@@ -18,38 +19,83 @@ function App() {
   document.body.style.background = "black";
   document.title = "QHDT Dashboard";
 
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
   const data = [
     {
-      name: "-50",
+      // name: "-50",
       battery: 200,
       motor: 300,
     },
     {
-      name: "-40",
+      // name: "-40",
       battery: 500,
       motor: 1198,
     },
     {
-      name: "-30",
+      // name: "-30",
       battery: 600,
       motor: 1398,
     },
     {
-      name: "-20",
+      // name: "-20",
       battery: 800,
       motor: 1100,
     },
     {
-      name: "-10",
+      // name: "-10",
       battery: 1000,
       motor: 900,
     },
     {
-      name: "0",
+      // name: "0",
       battery: 700,
       motor: 1100,
     },
+    {
+      // name: "10",
+      battery: 200,
+      motor: 1000,
+    },
   ];
+
+  const [sensors, setSensors] = useState([]);
+
+  let dataTest = [];
+
+  const handleSensors = async () => {
+    const response = await getSensors();
+    // const newSensors = [...sensors, response];
+    // console.log("response: ", response);
+    // console.log("dataTest: ", dataTest);
+    const newSensors = [...dataTest, response];
+    if (newSensors.length > 10) {
+      newSensors.shift();
+    }
+    // console.log("newSensors: ", newSensors);
+    setSensors(newSensors);
+    dataTest = newSensors;
+    // console.log("sensors: ", sensors);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSensors();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleEmergencyStop = async () => {
     console.log("Emergency Stop");
@@ -112,26 +158,31 @@ function App() {
               <h4>Telemetry</h4>
             </div>
             <LineChart
-              width={800}
-              height={600}
-              data={data}
+              width={width / 2.1}
+              height={height - 300}
+              data={sensors}
               margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
             >
               <XAxis dataKey="name" />
               <Legend />
-              {/* <Tooltip /> */}
-              {/* <CartesianGrid strokeDasharray="#f5f5f5" /> */}
               <Line
                 type="monotone"
-                dataKey="battery"
+                dataKey="batteryTemp"
                 stroke="red"
                 dot={false}
                 yAxisId={0}
               />
               <Line
                 type="monotone"
-                dataKey="motor"
+                dataKey="motorTemp"
                 stroke="yellow"
+                dot={false}
+                yAxisId={1}
+              />
+              <Line
+                type="monotone"
+                dataKey="podTemp"
+                stroke="blue"
                 dot={false}
                 yAxisId={1}
               />
@@ -207,3 +258,15 @@ function App() {
 }
 
 export default App;
+
+const colorMap = [
+  "#fc0303",
+  "#fc4103",
+  "#fc7f03",
+  "#fcb903",
+  "#fcf703",
+  "#b9fc03",
+  "#7bfc03",
+  "#3dfc03",
+  "#03fc3d",
+];

@@ -21,6 +21,8 @@ module.exports = function (db) {
     const messageData = message.toString();
     console.log(`UDP message: ${messageData}`);
 
+    // Sample message data: 3f 02 9c 78 49 1b
+
     const sensorType = messageData.split(":")[0];
     const sensorValue = messageData.split(":")[1];
 

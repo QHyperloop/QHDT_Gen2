@@ -33,4 +33,13 @@ async function ready() {
   }
 }
 
-export { emergencyStop, safe, ready };
+async function getSensors() {
+  try {
+    const response = await api.get("/sensors");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { emergencyStop, safe, ready, getSensors };

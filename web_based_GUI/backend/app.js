@@ -35,7 +35,7 @@ app.use("/health", (req, res) => {
 app.get("/sensors", (req, res) => {
   db.find({}, function (err, docs) {
     res.status(200);
-    res.send(docs);
+    res.send(docs[0]);
   });
 });
 
