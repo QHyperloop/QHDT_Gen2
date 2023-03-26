@@ -18,14 +18,17 @@ module.exports = function (db) {
   });
 
   socket.on("message", async (message, r) => {
-    const messageData = message.toString();
+    // console.log(message);
+    const messageData = message.toString("hex");
+
+    // message
     console.log(`UDP message: ${messageData}`);
 
     // Sample message data: 3f 02 9c 78 49 1b 02
 
     const hexArray = messageData.split(" ");
 
-    const batteryTemp = hexArray[0];
+    const batteryTemp = parseInt(hexArray.slice(0, 2).join(""), 16);
     const motorTemp = hexArray[1];
     const podTemp = hexArray[2];
     const motorVoltage = hexArray[3];
@@ -34,11 +37,6 @@ module.exports = function (db) {
     const vesselPressure = hexArray[6];
 
     db.findOne({ _id: "sensorData" }, async function (err, docs) {
-      // for (var key in docs) {
-      //   if (key === sensorType) {
-      //     docs[key] = sensorValue;
-      //   }
-      // }
       docs["batteryTemp"] = batteryTemp;
       docs["motorTemp"] = motorTemp;
       docs["podTemp"] = podTemp;

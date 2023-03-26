@@ -42,6 +42,7 @@ function App() {
     if (newSensors.length > 10) {
       newSensors.shift();
     }
+    console.log(newSensors);
     setSensors(newSensors);
     updatedSensors = newSensors;
   };
@@ -153,7 +154,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Battery Temperature</div>
               <div class="col-2">
-                <meter class="bar" id="battery-temp" value="0.6">
+                <meter
+                  class="bar"
+                  id="battery-temp"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].batteryTemp
+                  }
+                >
                   60%
                 </meter>
               </div>
@@ -161,7 +169,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Motor Temperature</div>
               <div class="col-2">
-                <meter class="bar" id="motor-temp" value="0.5">
+                <meter
+                  class="bar"
+                  id="motor-temp"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].motorTemp
+                  }
+                >
                   50%
                 </meter>
               </div>
@@ -169,7 +184,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Pod Temperature</div>
               <div class="col-2">
-                <meter class="bar" id="pod-temp" value="0.5">
+                <meter
+                  class="bar"
+                  id="pod-temp"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].podTemp
+                  }
+                >
                   50%
                 </meter>
               </div>
@@ -177,7 +199,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Motor Voltage</div>
               <div class="col-2">
-                <meter class="bar" id="motor-voltage" value="0.5">
+                <meter
+                  class="bar"
+                  id="motor-voltage"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].motorVoltage
+                  }
+                >
                   50%
                 </meter>
               </div>
@@ -185,7 +214,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Electronics Voltage</div>
               <div class="col-2">
-                <meter class="bar" id="electronics-voltage" value="0.5">
+                <meter
+                  class="bar"
+                  id="electronics-voltage"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].electronicsVoltage
+                  }
+                >
                   50%
                 </meter>
               </div>
@@ -193,7 +229,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Air Tank Pressure</div>
               <div class="col-2">
-                <meter class="bar" id="tank-pressure" value="0.5">
+                <meter
+                  class="bar"
+                  id="tank-pressure"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].tankPressure
+                  }
+                >
                   50%
                 </meter>
               </div>
@@ -201,7 +244,14 @@ function App() {
             <div class="row" id="data-row">
               <div class="col-4">Vessel Pressure</div>
               <div class="col-2">
-                <meter class="bar" id="vessel-pressure" value="0.5">
+                <meter
+                  class="bar"
+                  id="vessel-pressure"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].vesselPressure
+                  }
+                >
                   50%
                 </meter>
               </div>

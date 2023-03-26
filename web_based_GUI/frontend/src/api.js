@@ -36,6 +36,7 @@ async function ready() {
 async function getSensors() {
   try {
     const response = await api.get("/sensors");
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error(error);
