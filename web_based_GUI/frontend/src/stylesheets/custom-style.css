@@ -1,0 +1,89 @@
+body {
+  padding: 20px;
+  color: #cacccf;
+  background-color: #1c1c1b;
+}
+
+#drop-top {
+  padding-top: 20px;
+}
+
+#control-row {
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  padding: 20px;
+  padding-left: 15%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+#control-header {
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 15%;
+  margin-right: 10px;
+}
+
+#data-row {
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 2px;
+  margin-left: 0px;
+}
+
+#pod-status-pannel {
+  background-color: #0f0f0f;
+  border-radius: 5px;
+}
+
+#image-blurred-edge {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding: 7.5px;
+  border-radius: 5px;
+  /* you need to match the shadow color to your background or image border for the desired effect*/
+  box-shadow: 0 0 20px 20px #0f0f0f inset;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.bar {
+  width: 550%;
+}
+
+.btn {
+  margin: 5px;
+  width: 100%;
+}
+
+.telemetry-title {
+  padding: 10px;
+}
+
+.current-state {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 18%;
+  margin-left: -15px;
+  width: 102%;
+}
+
+.current-state-title {
+  font-size: 12px;
+}
+
+.current-state-value {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=custom-style.css.map */
