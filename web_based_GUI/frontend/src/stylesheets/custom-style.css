@@ -58,6 +58,32 @@ a {
 
 .btn {
   margin: 5px;
+  width: 100%;
+}
+
+.telemetry-title {
+  padding: 10px;
+}
+
+.current-state {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 18%;
+  margin-left: -15px;
+  width: 102%;
+}
+
+.current-state-title {
+  font-size: 12px;
+}
+
+.current-state-value {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=custom-style.css.map */

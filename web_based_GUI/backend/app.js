@@ -43,20 +43,26 @@ app.get("/sensors", (req, res) => {
 const outgoingUDPConnection = dgram.createSocket("udp4");
 const sendUdp = require("./udp/sendUDP");
 
-app.post("/emergencyStop", (req, res) => {
+app.post("/initialize", (req, res) => {
   sendUdp.send_via_udp(0, outgoingUDPConnection);
+  res.status(200);
+  res.send("Initialize");
+});
+
+app.post("/emergencyStop", (req, res) => {
+  sendUdp.send_via_udp(1, outgoingUDPConnection);
   res.status(200);
   res.send("Emergency Stop");
 });
 
 app.post("/safe", (req, res) => {
-  sendUdp.send_via_udp(1, outgoingUDPConnection);
+  sendUdp.send_via_udp(2, outgoingUDPConnection);
   res.status(200);
   res.send("Safe");
 });
 
 app.post("/ready", (req, res) => {
-  sendUdp.send_via_udp(2, outgoingUDPConnection);
+  sendUdp.send_via_udp(3, outgoingUDPConnection);
   res.status(200);
   res.send("Ready");
 });

@@ -1,7 +1,7 @@
 import logo from "./images/QH_logo.png";
 import styles from "./stylesheets/custom-style.css";
 import stlyes from "./stylesheets/bootstrap/bootstrap.min.css";
-import { emergencyStop, safe, ready, getSensors } from "./api";
+import { initialize, emergencyStop, safe, ready, getSensors } from "./api";
 import React, { useEffect, useRef, useState } from "react";
 
 import {
@@ -21,6 +21,8 @@ function App() {
 
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
+  const [currentState, setCurrentState] = useState("N/A");
+  const [sensors, setSensors] = useState([]);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -33,8 +35,6 @@ function App() {
     };
   }, []);
 
-  const [sensors, setSensors] = useState([]);
-
   let updatedSensors = [];
   const handleSensors = async () => {
     const response = await getSensors();
@@ -42,7 +42,6 @@ function App() {
     if (newSensors.length > 10) {
       newSensors.shift();
     }
-    console.log(newSensors);
     setSensors(newSensors);
     updatedSensors = newSensors;
   };
@@ -54,22 +53,38 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleInitialize = async () => {
+    console.log("Initialize");
+    const response = await initialize();
+    setCurrentState("Initialize");
+  };
+
   const handleEmergencyStop = async () => {
     console.log("Emergency Stop");
     const response = await emergencyStop();
-    console.log(response);
+    setCurrentState("Emergency Stop");
   };
 
   const handleReady = async () => {
     console.log("Ready");
     const response = await ready();
-    console.log(response);
+    setCurrentState("Ready");
   };
 
   const handleSafe = async () => {
     console.log("Safe");
     const response = await safe();
-    console.log(response);
+    setCurrentState("Safe");
+  };
+
+  const handleColor = (currentState) => {
+    if (currentState === "Emergency Stop") {
+      return "#dc3545";
+    } else if (currentState === "Safe" || currentState === "Ready") {
+      return "green";
+    } else {
+      return "white";
+    }
   };
 
   return (
@@ -82,13 +97,13 @@ function App() {
           <div class="col-2" id="control-panel">
             <div class="row" id="control-row">
               <button
-                class="btn btn-danger"
-                id="emerg-stop"
+                class="btn btn-info"
+                id="safe-approach"
                 onClick={() => {
-                  handleEmergencyStop();
+                  handleInitialize();
                 }}
               >
-                Emergency Stop
+                Initialize
               </button>
               <button
                 class="btn btn-info"
@@ -108,11 +123,31 @@ function App() {
               >
                 Safe To Approach
               </button>
+              <button
+                class="btn btn-danger"
+                id="emerg-stop"
+                onClick={() => {
+                  handleEmergencyStop();
+                }}
+              >
+                Emergency Stop
+              </button>
+            </div>
+            <div class="current-state">
+              <h4 class="current-state-title">Current State:</h4>
+              <h4
+                class="current-state-value"
+                style={{
+                  color: handleColor(currentState),
+                }}
+              >
+                {currentState}
+              </h4>
             </div>
           </div>
           <div class="col-6" id="pod-status-pannel">
             <div class="row">
-              <h4>Telemetry</h4>
+              <h4 class="telemetry-title">Telemetry</h4>
             </div>
             <LineChart
               width={width / 2.1}

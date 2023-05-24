@@ -6,6 +6,15 @@ const api = axios.create({
   }`,
 });
 
+async function initialize() {
+  try {
+    const response = await api.post("/initialize");
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function emergencyStop() {
   try {
     const response = await api.post("/emergencyStop");
@@ -43,4 +52,4 @@ async function getSensors() {
   }
 }
 
-export { emergencyStop, safe, ready, getSensors };
+export { initialize, emergencyStop, safe, ready, getSensors };
