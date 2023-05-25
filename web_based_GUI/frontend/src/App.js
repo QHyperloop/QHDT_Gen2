@@ -50,7 +50,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       handleSensors();
-    }, 5000);
+    }, 500);
     return () => clearInterval(interval);
   }, []);
 
@@ -189,126 +189,67 @@ function App() {
             </div>
             <SensorDataBar
               sensors={sensors}
-              updatedSensors={updatedSensors}
               sensorName={"speed"}
               unit={"m/s"}
               min={0}
               max={200}
             />
-            <div class="row" id="data-row">
-              <div class="col-4">Battery Temp</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="motor-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].batteryTemp
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Motor Temp</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="motor-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].motorTemp
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Battery Voltage</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  // id="motor-voltage"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].batteryVoltage
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Air System Temp</div>
-              <div class="col-2">20232</div>
-              <div class="col-6">
-                <meter
-                  class="bar"
-                  // id="pod-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].airSystemTemp
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="col" id="data-row">
-              <div class="col-4">Tank Pressure</div>
-              <div class="row" id="val-row">
-                <div class="col-4">
-                  {sensors.length && sensors[sensors.length - 1].tankPressure} V
-                </div>
-                <div class="col-8">
-                  <meter
-                    class="bar"
-                    value={
-                      updatedSensors.length &&
-                      updatedSensors[updatedSensors.length - 1].tankPressure
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Caliper 1 Pressure</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].caliper1Pressure
-                  }
-                />
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Caliper 2 Pressure</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].caliper2Pressure
-                  }
-                />
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Distance Travelled</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].distanceTravelled
-                  }
-                />
-              </div>
-            </div>
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"batteryTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"motorTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"batteryVoltage"}
+              unit={"V"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"airSystemTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"tankPressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"caliper1Pressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"caliper2Pressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"distanceTravelled"}
+              unit={"m"}
+              min={0}
+              max={2000}
+            />
           </div>
         </div>
       </div>
@@ -317,15 +258,3 @@ function App() {
 }
 
 export default App;
-
-const colorMap = [
-  "#fc0303",
-  "#fc4103",
-  "#fc7f03",
-  "#fcb903",
-  "#fcf703",
-  "#b9fc03",
-  "#7bfc03",
-  "#3dfc03",
-  "#03fc3d",
-];

@@ -1,5 +1,9 @@
 const dgram = require("dgram");
 
+const convertToCelciusFromKelvin = (kelvin) => {
+  return kelvin - 273;
+};
+
 module.exports = function (db) {
   const socket = dgram.createSocket("udp4");
 
@@ -27,10 +31,10 @@ module.exports = function (db) {
 
     db.findOne({ _id: "sensorData" }, async function (err, docs) {
       docs["speed"] = messsageArray[0];
-      docs["batteryTemp"] = messsageArray[1];
-      docs["motorTemp"] = messsageArray[2];
+      docs["batteryTemp"] = convertToCelciusFromKelvin(messsageArray[1]);
+      docs["motorTemp"] = convertToCelciusFromKelvin(messsageArray[2]);
       docs["batteryVoltage"] = messsageArray[3];
-      docs["airSystemTemp"] = messsageArray[4];
+      docs["airSystemTemp"] = convertToCelciusFromKelvin(messsageArray[4]);
       docs["tankPressure"] = messsageArray[5];
       docs["caliper1Pressure"] = messsageArray[6];
       docs["caliper2Pressure"] = messsageArray[7];

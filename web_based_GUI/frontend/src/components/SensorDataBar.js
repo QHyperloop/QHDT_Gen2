@@ -20,9 +20,9 @@ function SensorDataBar({
 
   return (
     <div class="col" id="data-row">
-      <div class="col-4">{nameMapping[sensorName]}</div>
+      <div class="col-10">{nameMapping[sensorName]}</div>
       <div class="row" id="val-row">
-        <div class="col-4">
+        <div class="col-4" id="sensor-val">
           {`${
             sensors.length && sensors[sensors.length - 1][sensorName]
           } ${unit}`}
@@ -31,8 +31,9 @@ function SensorDataBar({
           <meter
             class="bar"
             value={
-              updatedSensors.length &&
-              updatedSensors[updatedSensors.length - 1][sensorName]
+              ((sensors.length && sensors[sensors.length - 1][sensorName]) -
+                min) /
+              (max - min)
             }
           />
         </div>
