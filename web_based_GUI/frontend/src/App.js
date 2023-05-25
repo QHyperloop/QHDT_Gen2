@@ -3,6 +3,7 @@ import styles from "./stylesheets/custom-style.css";
 import stlyes from "./stylesheets/bootstrap/bootstrap.min.css";
 import { initialize, emergencyStop, safe, ready, getSensors } from "./api";
 import React, { useEffect, useRef, useState } from "react";
+import SensorDataBar from "./components/SensorDataBar";
 
 import {
   LineChart,
@@ -159,21 +160,21 @@ function App() {
               <Legend />
               <Line
                 type="monotone"
-                dataKey="batteryTemp"
+                dataKey="speed"
                 stroke="red"
                 dot={false}
                 yAxisId={0}
               />
               <Line
                 type="monotone"
-                dataKey="motorTemp"
+                dataKey="batteryTemp"
                 stroke="yellow"
                 dot={false}
                 yAxisId={1}
               />
               <Line
                 type="monotone"
-                dataKey="podTemp"
+                dataKey="motorTemp"
                 stroke="blue"
                 dot={false}
                 yAxisId={1}
@@ -186,23 +187,31 @@ function App() {
                 <h4>Sensor Data</h4>
               </div>
             </div>
+            <SensorDataBar
+              sensors={sensors}
+              updatedSensors={updatedSensors}
+              sensorName={"speed"}
+              unit={"m/s"}
+              min={0}
+              max={200}
+            />
             <div class="row" id="data-row">
-              <div class="col-4">Battery Temperature</div>
+              <div class="col-4">Battery Temp</div>
               <div class="col-2">
                 <meter
                   class="bar"
-                  id="battery-temp"
+                  id="motor-temp"
                   value={
                     updatedSensors.length &&
                     updatedSensors[updatedSensors.length - 1].batteryTemp
                   }
                 >
-                  60%
+                  50%
                 </meter>
               </div>
             </div>
             <div class="row" id="data-row">
-              <div class="col-4">Motor Temperature</div>
+              <div class="col-4">Motor Temp</div>
               <div class="col-2">
                 <meter
                   class="bar"
@@ -217,14 +226,14 @@ function App() {
               </div>
             </div>
             <div class="row" id="data-row">
-              <div class="col-4">Pod Temperature</div>
+              <div class="col-4">Battery Voltage</div>
               <div class="col-2">
                 <meter
                   class="bar"
-                  id="pod-temp"
+                  // id="motor-voltage"
                   value={
                     updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].podTemp
+                    updatedSensors[updatedSensors.length - 1].batteryVoltage
                   }
                 >
                   50%
@@ -232,63 +241,72 @@ function App() {
               </div>
             </div>
             <div class="row" id="data-row">
-              <div class="col-4">Motor Voltage</div>
-              <div class="col-2">
+              <div class="col-4">Air System Temp</div>
+              <div class="col-2">20232</div>
+              <div class="col-6">
                 <meter
                   class="bar"
-                  id="motor-voltage"
+                  // id="pod-temp"
                   value={
                     updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].motorVoltage
+                    updatedSensors[updatedSensors.length - 1].airSystemTemp
                   }
                 >
                   50%
                 </meter>
               </div>
             </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Electronics Voltage</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="electronics-voltage"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].electronicsVoltage
-                  }
-                >
-                  50%
-                </meter>
+            <div class="col" id="data-row">
+              <div class="col-4">Tank Pressure</div>
+              <div class="row" id="val-row">
+                <div class="col-4">
+                  {sensors.length && sensors[sensors.length - 1].tankPressure} V
+                </div>
+                <div class="col-8">
+                  <meter
+                    class="bar"
+                    value={
+                      updatedSensors.length &&
+                      updatedSensors[updatedSensors.length - 1].tankPressure
+                    }
+                  />
+                </div>
               </div>
             </div>
             <div class="row" id="data-row">
-              <div class="col-4">Air Tank Pressure</div>
+              <div class="col-4">Caliper 1 Pressure</div>
               <div class="col-2">
                 <meter
                   class="bar"
-                  id="tank-pressure"
                   value={
                     updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].tankPressure
+                    updatedSensors[updatedSensors.length - 1].caliper1Pressure
                   }
-                >
-                  50%
-                </meter>
+                />
               </div>
             </div>
             <div class="row" id="data-row">
-              <div class="col-4">Vessel Pressure</div>
+              <div class="col-4">Caliper 2 Pressure</div>
               <div class="col-2">
                 <meter
                   class="bar"
-                  id="vessel-pressure"
                   value={
                     updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].vesselPressure
+                    updatedSensors[updatedSensors.length - 1].caliper2Pressure
                   }
-                >
-                  50%
-                </meter>
+                />
+              </div>
+            </div>
+            <div class="row" id="data-row">
+              <div class="col-4">Distance Travelled</div>
+              <div class="col-2">
+                <meter
+                  class="bar"
+                  value={
+                    updatedSensors.length &&
+                    updatedSensors[updatedSensors.length - 1].distanceTravelled
+                  }
+                />
               </div>
             </div>
           </div>

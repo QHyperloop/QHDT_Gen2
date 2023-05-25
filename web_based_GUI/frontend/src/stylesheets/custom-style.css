@@ -32,6 +32,11 @@ body {
   padding: 5px;
   margin-bottom: 2px;
   margin-left: 0px;
+  width: 100%;
+}
+
+#val-row {
+  margin-left: 0px;
 }
 
 #pod-status-pannel {
@@ -53,7 +58,7 @@ a {
 }
 
 .bar {
-  width: 550%;
+  width: 98%;
 }
 
 .btn {
