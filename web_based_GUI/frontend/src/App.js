@@ -3,6 +3,7 @@ import styles from "./stylesheets/custom-style.css";
 import stlyes from "./stylesheets/bootstrap/bootstrap.min.css";
 import { initialize, emergencyStop, safe, ready, getSensors } from "./api";
 import React, { useEffect, useRef, useState } from "react";
+import SensorDataBar from "./components/SensorDataBar";
 
 import {
   LineChart,
@@ -49,7 +50,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       handleSensors();
-    }, 5000);
+    }, 500);
     return () => clearInterval(interval);
   }, []);
 
@@ -159,21 +160,21 @@ function App() {
               <Legend />
               <Line
                 type="monotone"
-                dataKey="batteryTemp"
+                dataKey="speed"
                 stroke="red"
                 dot={false}
                 yAxisId={0}
               />
               <Line
                 type="monotone"
-                dataKey="motorTemp"
+                dataKey="batteryTemp"
                 stroke="yellow"
                 dot={false}
                 yAxisId={1}
               />
               <Line
                 type="monotone"
-                dataKey="podTemp"
+                dataKey="motorTemp"
                 stroke="blue"
                 dot={false}
                 yAxisId={1}
@@ -186,111 +187,69 @@ function App() {
                 <h4>Sensor Data</h4>
               </div>
             </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Battery Temperature</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="battery-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].batteryTemp
-                  }
-                >
-                  60%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Motor Temperature</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="motor-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].motorTemp
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Pod Temperature</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="pod-temp"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].podTemp
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Motor Voltage</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="motor-voltage"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].motorVoltage
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Electronics Voltage</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="electronics-voltage"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].electronicsVoltage
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Air Tank Pressure</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="tank-pressure"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].tankPressure
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
-            <div class="row" id="data-row">
-              <div class="col-4">Vessel Pressure</div>
-              <div class="col-2">
-                <meter
-                  class="bar"
-                  id="vessel-pressure"
-                  value={
-                    updatedSensors.length &&
-                    updatedSensors[updatedSensors.length - 1].vesselPressure
-                  }
-                >
-                  50%
-                </meter>
-              </div>
-            </div>
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"speed"}
+              unit={"m/s"}
+              min={0}
+              max={200}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"batteryTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"motorTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"batteryVoltage"}
+              unit={"V"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"airSystemTemp"}
+              unit={"°C"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"tankPressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"caliper1Pressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"caliper2Pressure"}
+              unit={"psi"}
+              min={0}
+              max={100}
+            />
+            <SensorDataBar
+              sensors={sensors}
+              sensorName={"distanceTravelled"}
+              unit={"m"}
+              min={0}
+              max={2000}
+            />
           </div>
         </div>
       </div>
@@ -299,15 +258,3 @@ function App() {
 }
 
 export default App;
-
-const colorMap = [
-  "#fc0303",
-  "#fc4103",
-  "#fc7f03",
-  "#fcb903",
-  "#fcf703",
-  "#b9fc03",
-  "#7bfc03",
-  "#3dfc03",
-  "#03fc3d",
-];

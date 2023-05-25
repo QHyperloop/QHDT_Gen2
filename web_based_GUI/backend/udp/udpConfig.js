@@ -1,5 +1,9 @@
 const dgram = require("dgram");
 
+const convertToCelciusFromKelvin = (kelvin) => {
+  return kelvin - 273;
+};
+
 module.exports = function (db) {
   const socket = dgram.createSocket("udp4");
 
@@ -18,32 +22,23 @@ module.exports = function (db) {
   });
 
   socket.on("message", async (message, r) => {
-    // console.log(message);
-    const messageData = message.toString("hex");
+    const messageData = message.toString();
+    // const messageData = "speed.batteryTemp.motorTemp.batteryVoltage.airSystemTemp.tankPressure.caliper1Pressure.caliper2Pressure.distanceTravelled";
 
-    // message
     console.log(`UDP message: ${messageData}`);
 
-    // Sample message data: 3f 02 9c 78 49 1b 02
-
-    const hexArray = messageData.split(" ");
-
-    const batteryTemp = parseInt(hexArray.slice(0, 2).join(""), 16);
-    const motorTemp = hexArray[1];
-    const podTemp = hexArray[2];
-    const motorVoltage = hexArray[3];
-    const electronicsVoltage = hexArray[4];
-    const tankPressure = hexArray[5];
-    const vesselPressure = hexArray[6];
+    const messsageArray = messageData.split(".");
 
     db.findOne({ _id: "sensorData" }, async function (err, docs) {
-      docs["batteryTemp"] = batteryTemp;
-      docs["motorTemp"] = motorTemp;
-      docs["podTemp"] = podTemp;
-      docs["motorVoltage"] = motorVoltage;
-      docs["electronicsVoltage"] = electronicsVoltage;
-      docs["tankPressure"] = tankPressure;
-      docs["vesselPressure"] = vesselPressure;
+      docs["speed"] = messsageArray[0];
+      docs["batteryTemp"] = convertToCelciusFromKelvin(messsageArray[1]);
+      docs["motorTemp"] = convertToCelciusFromKelvin(messsageArray[2]);
+      docs["batteryVoltage"] = messsageArray[3];
+      docs["airSystemTemp"] = convertToCelciusFromKelvin(messsageArray[4]);
+      docs["tankPressure"] = messsageArray[5];
+      docs["caliper1Pressure"] = messsageArray[6];
+      docs["caliper2Pressure"] = messsageArray[7];
+      docs["distanceTravelled"] = messsageArray[8];
 
       db.update(
         { _id: "sensorData" },

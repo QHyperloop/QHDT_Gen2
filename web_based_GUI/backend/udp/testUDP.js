@@ -4,7 +4,8 @@
 var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
 
-const message = "10 20 12 14 12 03 02";
+const message = "114.294.299.54.298.0.0.0.300";
+// ("speed.batteryTemp.motorTemp.batteryVoltage.airSystemTemp.tankPressure.caliper1Pressure.caliper2Pressure.distanceTravelled");
 
 console.log(`Sending UDP message: "${message}"`);
 
